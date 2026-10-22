@@ -1,0 +1,38 @@
+appId: app.echoclass.desktop
+productName: EchoClass
+# Use the Electron binary already installed in node_modules. This makes an
+# offline `npm run package` work and avoids re-downloading 120 MB.
+electronDist: node_modules/electron/dist
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+  # Keep only the native ONNX Runtime build for this platform.
+  - "!**/node_modules/onnxruntime-node/bin/napi-v6/linux/**"
+  - "!**/node_modules/onnxruntime-node/bin/napi-v6/win32/**"
+asarUnpack:
+  - "**/node_modules/onnxruntime-node/**"
+extraResources:
+  - from: models
+    to: models
+    filter:
+      - "*.bin"
+      - "sign/**"
+mac:
+  category: public.app-category.education
+  icon: build/icon.icns
+  target:
+    - dmg
+  hardenedRuntime: true
+  extendInfo:
+    NSMicrophoneUsageDescription: EchoClass uses the microphone to caption the lecture on this device. Audio is never recorded or uploaded.
+    NSCameraUsageDescription: EchoClass uses the camera only on the Fingerspelling page to recognise ASL letters on this device. Frames are never recorded or uploaded.
+win:
+  target:
+    - nsis
+linux:
+  target:
+    - AppImage
+  category: Education

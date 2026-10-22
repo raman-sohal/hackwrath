@@ -1,0 +1,13 @@
+node_modules/
+out/
+release/
+dist/
+*.tsbuildinfo
+models/*.bin
+models/sign/*.onnx
+build/icon.iconset/
+build/icon.svg.png
+build/sign-*.y4m
+*.log
+.DS_Store
+.env
